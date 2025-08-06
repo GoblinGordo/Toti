@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Dirkelyon.com</title>
+  <link rel="stylesheet" href="indexstyles.css" />
+</head>
+<body>
+
+  <!-- Banner principal -->
+  <header class="banner">
+	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image active" />
+  	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+  	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+  	<img src="logo.png" alt="Logo Fijo" class="banner-logo" />
+
+
+</header>
+  </header>
+
+  <!-- Menú de navegación -->
+  <nav class="nav-container">
+    <button class="menu-toggle"id="menuButton"onclick="toggleMenu()">☰ Menú</button>
+    <div class="menu" id="navMenu">
+
+
+      <a href="index.html">Inicio</a>
+      <a href="newwiki.html">Wiki</a>
+      <a href="rules.html">Reglas</a>
+      <a href="jugar.html">Jugar</a>
+      <a href="competitivo.html">Competitivo</a>
+      <a href="lore.html">Lore</a>
+      <a href="deckbuild.html">Crear Mazo</a>
+	  <a href="index.html#aboutus">Sobre Nosotros</a>
+      <a href="index.html#contact">Contactar</a>
+    </div>
+
+
+<!-- Introducción -->
+<section class="intro">
+  <div class="container">
+    <h1 align="left	">¿Quieres jugar a Dirkelyon?</h1>
+    <p> Presta antención pues...</p>
+	<br>
+	<br>
+          <p> Hay dos formas de empezar a jugar: En formato Físico o en Formato Digital</p>   
+<br>
+<h3>Formato Físico</h3> 
+<p> 
+🎲 Partidas presenciales. Organizamos quedadas recurrentes donde podrás jugar con cartas físicas, conocer a otros jugadores, probar nuevas estrategias y sumergirte de lleno en el mundo de Dirkelyon. Estas partidas suelen celebrarse en distintos puntos de Galicia y van creciendo poco a poco.
+</p><br>
+<h3>Formato Digital</h3> 
+<p> 
+🖥️ Online, a través de Tabletop Simulator
+Si no puedes asistir a una partida presencial, puedes unirte desde cualquier parte del mundo gracias a Tabletop Simulator, una plataforma en Steam que permite jugar a juegos de mesa en entornos 3D. Hemos adaptado Dirkelyon para que puedas disfrutar del juego de forma remota, con todo el contenido necesario para una experiencia completa. Solo necesitas el juego y conexión a internet.
+</p> <br>
+<h3>¿Quieres probar el Juego?</h3>
+<p> 
+Escríbenos por Instagram o por WhatsApp para más información, fechas de quedadas o ayuda para empezar. ¡Siempre estamos encantados de sumar nuevos jugadores a la comunidad!</p>   
+
+</div>
+</section>
+
+
+  </nav>
+
+  <script>
+   function toggleMenu() {
+  const navMenu = document.getElementById("navMenu");
+  const menuButton = document.getElementById("menuButton");
+
+  navMenu.classList.toggle("active");
+
+  // Cambiar el texto del botón
+  if (navMenu.classList.contains("active")) {
+    menuButton.textContent = "✖";
+    document.body.style.overflow = "hidden"; // Desactiva scroll
+  } else {
+    menuButton.textContent = "☰ Menú";
+    document.body.style.overflow = "auto"; // Vuelve a activar scroll
+  }
+}
+
+  // Carrusel del banner
+  const images = document.querySelectorAll('.banner-image');
+  let currentIndex = 0;
+  const intervalTime = 4000;
+
+  function showNextImage() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+  }
+
+  setInterval(showNextImage, intervalTime);
+  </script>
+
+</body>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h4>Contacto</h4>
+      <p>Email: dirkelyon@gmail.com</p>
+      <p>Teléfono: +34 611 103 078</p>
+    </div>
+    <div class="footer-center">
+      <h4>Síguenos</h4>
+      <p>
+        <a href="https://www.instagram.com/dirkelyon?igsh=MWo4OGYyOTNtYzJ5cw==">Instagram</a>
+      </p>
+    </div>
+    <div class="footer-right">
+      <h4>Legal</h4>
+      <p>&copy; 2025 Dirkelyon. Todos los derechos reservados.</p>
+      <p><a href="#">Política de privacidad</a></p>
+    </div>
+  </div>
+</footer>
+
+
+
+</html>

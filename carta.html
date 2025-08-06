@@ -1,0 +1,295 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Detalles de Carta - Dirkelyon</title>
+  <link rel="stylesheet" href="indexstyles.css" />
+  <style>
+    body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #f8f9fa;
+    }
+
+    .container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 40px 20px;
+    }
+
+    .row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 30px;
+      align-items: flex-start;
+      justify-content: space-between;
+    }
+
+    .card-image img {
+      width: 280px;
+      max-width: 100%;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+    }
+
+    .card-info {
+      flex: 1;
+      min-width: 250px;
+    }
+
+    .card-info h1 {
+      margin-top: 0;
+      font-size: 2em;
+      color: #222;
+    }
+
+    .rules-list {
+      list-style: square;
+      padding-left: 20px;
+      margin-top: 10px;
+      color: #444;
+    }
+
+    .lore-section {
+      margin-top: 40px;
+      background-color: #f3f3f3;
+      padding: 20px;
+      border-radius: 10px;
+    }
+
+    .lore-section strong {
+      font-size: 1.2em;
+      color: #333;
+    }
+
+    /* --- Ocultar elementos en móvil --- */
+    @media (max-width: 768px) {
+      .banner,
+      .banner-logo,
+      .banner-image,
+      .nav-container,
+      .menu-toggle {
+        display: none !important;
+      }
+
+      .row {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+      }
+
+      .card-info {
+        text-align: left;
+      }
+    }
+
+    /* Banner desktop */
+    .banner {
+      position: relative;
+      width: 100%;
+      height: 250px;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: #000;
+    }
+
+    .banner-image {
+      position: absolute;
+      height: 100%;
+      width: auto;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%, -50%);
+      opacity: 0;
+      transition: opacity 1.5s ease-in-out;
+      pointer-events: none;
+      z-index: 1;
+    }
+
+    .banner-image.active {
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .banner-logo {
+      position: absolute;
+      max-height: 90%;
+      max-width: 180%;
+      z-index: 10;
+      pointer-events: none;
+    }
+
+    .nav-container {
+      background-color: #781100;
+      text-align: center;
+      padding: 0;
+    }
+
+    .menu {
+      display: flex;
+      justify-content: center;
+      flex-wrap: wrap;
+    }
+
+    .menu a {
+      display: inline-block;
+      background-image: url("button.png");
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: white;
+      width: 100px;
+      height: 30px;
+      min-width: 160px;
+      text-decoration: none;
+      font-weight: bold;
+      text-align: center;
+      transition: transform 0.2s ease;
+    }
+
+    .menu a:hover {
+      transform: scale(1.05);
+      opacity: 0.9;
+    }
+  </style>
+</head>
+
+<body>
+
+  <!-- Banner principal -->
+  <header class="banner">
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image active" />
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+    <img src="logo.png" alt="Logo Fijo" class="banner-logo" />
+  </header>
+
+  <!-- Menú de navegación -->
+  <nav class="nav-container">
+    <button class="menu-toggle"id="menuButton"onclick="toggleMenu()">☰ Menú</button>
+    <div class="menu" id="navMenu">
+      <a href="index.html">Inicio</a>
+      <a href="newwiki.html">Wiki</a>
+      <a href="rules.html">Reglas</a>
+      <a href="jugar.html">Jugar</a>
+      <a href="competitivo.html">Competitivo</a>
+      <a href="lore.html">Lore</a>
+      <a href="deckbuild.html">Crear Mazo</a>
+	  <a href="index.html#aboutus">Sobre Nosotros</a>
+      <a href="index.html#contact">Contactar</a>
+    </div>
+  </nav>
+
+  <main class="container" id="cardDetail">
+    <p>Cargando carta...</p>
+  </main>
+
+  <script>
+   function toggleMenu() {
+  const navMenu = document.getElementById("navMenu");
+  const menuButton = document.getElementById("menuButton");
+
+  navMenu.classList.toggle("active");
+
+  // Cambiar el texto del botón
+  if (navMenu.classList.contains("active")) {
+    menuButton.textContent = "✖";
+    document.body.style.overflow = "hidden"; // Desactiva scroll
+  } else {
+    menuButton.textContent = "☰ Menú";
+    document.body.style.overflow = "auto"; // Vuelve a activar scroll
+  }
+}
+
+  // Carrusel del banner
+  const images = document.querySelectorAll('.banner-image');
+  let currentIndex = 0;
+  const intervalTime = 4000;
+
+  function showNextImage() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+  }
+
+  setInterval(showNextImage, intervalTime);
+
+    const cards = [
+      {
+        id: "vasija-fundidora",
+        name: "Vasija Fundidora",
+        image: "1.jpg",
+        rules: [
+          "Obra Maestra",
+          "Coste: 0",
+          "Metal: Jehryon",
+          "Transforma una carta de Fábrica en Obra Maestra.",
+          "Solo puede activarse una vez por partida."
+        ],
+        lore: "Esta vasija ancestral absorbe el calor del núcleo de Jehryon, canalizando energía alquímica. Su superficie brilla con grabados que laten como un corazón vivo. Fue sellada por los antiguos magisterios para que no cayera en manos erradas."
+      },
+      {
+        id: "candelabro-de-tsurabban",
+        name: "Candelabro de Tsurabban",
+        image: "1.jpg",
+        rules: [
+          "Obra Maestra",
+          "Metal: Sulffaryo",
+          "Efectos: Aumenta el poder de Rituales relacionados con Sulffaryo.",
+          "No acumulable con otros candelabros."
+        ],
+        lore: "Creado en las forjas de Tsurabban, su llama nunca se apaga y guía a los iniciados por pasajes secretos de fuego y fe."
+      }
+    ];
+
+    const params = new URLSearchParams(window.location.search);
+    const cardId = params.get("id");
+    const card = cards.find(c => c.id === cardId);
+    const detailDiv = document.getElementById("cardDetail");
+
+    if (card) {
+      const rulesHtml = card.rules.map(rule => `<li>${rule}</li>`).join("");
+
+      detailDiv.innerHTML = `
+        <div class="row">
+          <div class="card-image">
+            <img src="${card.image}" alt="${card.name}">
+          </div>
+          <div class="card-info">
+            <h1>${card.name}</h1>
+            <ul class="rules-list">${rulesHtml}</ul>
+          </div>
+        </div>
+        <div class="lore-section">
+          <p><strong>Lore y curiosidades:</strong></p>
+          <p>${card.lore}</p>
+        </div>
+      `;
+    } else {
+      detailDiv.innerHTML = "<p>Carta no encontrada.</p>";
+    }
+  </script>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <h4>Contacto</h4>
+        <p>Email: dirkelyon@gmail.com</p>
+        <p>Teléfono: +34 611 103 078</p>
+      </div>
+      <div class="footer-center">
+        <h4>Síguenos</h4>
+        <p><a href="https://www.instagram.com/dirkelyon">Instagram</a></p>
+      </div>
+      <div class="footer-right">
+        <h4>Legal</h4>
+        <p>&copy; 2025 Dirkelyon. Todos los derechos reservados.</p>
+        <p><a href="#">Política de privacidad</a></p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

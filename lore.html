@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Lore - Dirkelyon</title>
+  <link rel="stylesheet" href="indexstyles.css" />
+  <style>
+    .lore-wrapper {
+      display: flex;
+      gap: 40px;
+      max-width: 1600px;
+      margin: 40px auto;
+      padding: 20px;
+    }
+
+    .lore-sumario {
+      width: 280px;
+      background-color: #f7f7f7;
+      border: 2px solid #ccc;
+      border-radius: 8px;
+      padding: 20px;
+      position: sticky;
+      top: 120px;
+      height: fit-content;
+      flex-shrink: 0;
+    }
+
+    .lore-sumario ul {
+      list-style: none;
+      padding-left: 0;
+    }
+
+    .lore-sumario li {
+      margin-bottom: 10px;
+    }
+
+    .lore-sumario a {
+      text-decoration: none;
+      color: #264653;
+      font-weight: 500;
+    }
+
+    .lore-sumario a:hover {
+      color: #2a9d8f;
+      text-decoration: underline;
+    }
+
+    .lore-content {
+      flex: 1;
+      max-width: 900px;
+    }
+
+    .subsecciones,
+    .contenido-lore {
+      display: none;
+    }
+
+    .subsecciones.activa,
+    .contenido-lore.activa {
+      display: block;
+    }
+
+    .subsecciones ul {
+      list-style: square;
+      padding-left: 20px;
+    }
+
+    @media (max-width: 992px) {
+      .lore-wrapper {
+        flex-direction: column;
+      }
+
+      .lore-sumario {
+        width: 100%;
+        position: static;
+      }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Banner -->
+  <header class="banner">
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image active" />
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+    <img src="logo.png" alt="Logo Fijo" class="banner-logo" />
+  </header>
+
+  <!-- Menú navegación -->
+  <nav class="nav-container">
+    <button class="menu-toggle" id="menuButton" onclick="toggleMenu()">☰ Menú</button>
+    <div class="menu" id="navMenu">
+      <a href="index.html">Inicio</a>
+      <a href="newwiki.html">Wiki</a>
+      <a href="rules.html">Reglas</a>
+      <a href="jugar.html">Jugar</a>
+      <a href="competitivo.html">Competitivo</a>
+      <a href="lore.html">Lore</a>
+      <a href="deckbuild.html">Crear Mazo</a>
+	  <a href="index.html#aboutus">Sobre Nosotros</a>
+      <a href="index.html#contact">Contactar</a>
+    </div>
+  </nav>
+
+  <section class="intro">
+    <div class="container">
+      <h1 align="left">Lore del Universo Dirkelyon</h1>
+      <p>Explora los secretos ancestrales, metales místicos y conflictos que definieron el mundo de Dirkelyon. Desde los primeros destellos de la forja eterna hasta las batallas que aún arden, este es tu portal a la historia viva del juego.</p>
+    </div>
+  </section>
+
+  <div class="lore-wrapper">
+    <!-- Menú lateral -->
+    <aside class="lore-sumario">
+      <h3>Secciones del Lore</h3>
+      <ul>
+        <li><a href="#" onclick="mostrarSubsecciones('origenes')">Origen del Mundo</a></li>
+        <li><a href="#" onclick="mostrarSubsecciones('metales')">Los Metales Primordiales</a></li>
+        <li><a href="#" onclick="mostrarSubsecciones('facciones')">Facciones y Culturas</a></li>
+        <li><a href="#" onclick="mostrarSubsecciones('artefactos')">Artefactos Legendarios</a></li>
+      </ul>
+    </aside>
+
+    <!-- Área de contenido -->
+    <main class="lore-content">
+      <!-- Subsecciones -->
+      <div id="origenes" class="subsecciones activa">
+        <h2>Origen del Mundo</h2>
+        <ul>
+          <li><a href="#" onclick="mostrarContenido('génesis')">El Génesis</a></li>
+          <li><a href="#" onclick="mostrarContenido('primeros')">Los Primeros Forjadores</a></li>
+        </ul>
+      </div>
+
+      <div id="metales" class="subsecciones">
+        <h2>Los Metales Primordiales</h2>
+        <ul>
+          <li><a href="#" onclick="mostrarContenido('jehryon')">Jehryon</a></li>
+          <li><a href="#" onclick="mostrarContenido('sulffaryo')">Sulffaryo</a></li>
+        </ul>
+      </div>
+
+      <div id="facciones" class="subsecciones">
+        <h2>Facciones y Culturas</h2>
+        <ul>
+          <li><a href="#" onclick="mostrarContenido('norten')">Los Norten</a></li>
+          <li><a href="#" onclick="mostrarContenido('tsurabban')">La Orden de Tsurabban</a></li>
+        </ul>
+      </div>
+
+      <div id="artefactos" class="subsecciones">
+        <h2>Artefactos Legendarios</h2>
+        <ul>
+          <li><a href="#" onclick="mostrarContenido('vasija')">Vasija Fundidora</a></li>
+          <li><a href="#" onclick="mostrarContenido('candelabro')">Candelabro de Tsurabban</a></li>
+        </ul>
+      </div>
+
+      <!-- Contenido específico de Lore -->
+      <div id="génesis" class="contenido-lore">
+        <h2>El Génesis</h2>
+        <p>Antes de los cielos y mares, solo existía el yunque eterno. De él nacieron los metales vivos y la primera chispa de conciencia...</p>
+        <button onclick="volverASecciones()">← Volver</button>
+      </div>
+
+      <div id="primeros" class="contenido-lore">
+        <h2>Los Primeros Forjadores</h2>
+        <p>Seres esculpidos en llamas que modelaron los continentes a golpe de martillo, y sellaron secretos en cámaras bajo tierra.</p>
+        <button onclick="volverASecciones()">← Volver</button>
+      </div>
+
+      <div id="jehryon" class="contenido-lore">
+        <h2>Jehryon</h2>
+        <p>Metal noble y esencial, canal de energía pura y símbolo del equilibrio forjador.</p>
+        <button onclick="volverASecciones()">← Volver</button>
+      </div>
+
+      <div id="sulffaryo" class="contenido-lore">
+        <h2>Sulffaryo</h2>
+        <p>Oscuro y poderoso, el metal del sacrificio. Se alimenta del conflicto y responde a la voluntad del alma.</p>
+        <button onclick="volverASecciones()">← Volver</button>
+      </div>
+
+      <!-- Añade más bloques de contenido según necesites -->
+
+    </main>
+  </div>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <h4>Contacto</h4>
+        <p>Email: dirkelyon@gmail.com</p>
+        <p>Teléfono: +34 611 103 078</p>
+      </div>
+      <div class="footer-center">
+        <h4>Síguenos</h4>
+        <p><a href="https://www.instagram.com/dirkelyon">Instagram</a></p>
+      </div>
+      <div class="footer-right">
+        <h4>Legal</h4>
+        <p>&copy; 2025 Dirkelyon. Todos los derechos reservados.</p>
+        <p><a href="#">Política de privacidad</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    function toggleMenu() {
+      const navMenu = document.getElementById("navMenu");
+      const menuButton = document.getElementById("menuButton");
+      navMenu.classList.toggle("active");
+      if (navMenu.classList.contains("active")) {
+        menuButton.textContent = "✖";
+        document.body.style.overflow = "hidden";
+      } else {
+        menuButton.textContent = "☰ Menú";
+        document.body.style.overflow = "auto";
+      }
+    }
+
+    function mostrarSubsecciones(id) {
+      document.querySelectorAll(".subsecciones").forEach(s => s.classList.remove("activa"));
+      document.querySelectorAll(".contenido-lore").forEach(c => c.classList.remove("activa"));
+      document.getElementById(id).classList.add("activa");
+    }
+
+    function mostrarContenido(id) {
+      document.querySelectorAll(".subsecciones").forEach(s => s.classList.remove("activa"));
+      document.querySelectorAll(".contenido-lore").forEach(c => c.classList.remove("activa"));
+      document.getElementById(id).classList.add("activa");
+    }
+
+    function volverASecciones() {
+      document.querySelectorAll(".contenido-lore").forEach(c => c.classList.remove("activa"));
+      document.querySelector(".subsecciones.activa")?.classList.add("activa");
+    }
+  </script>
+</body>
+</html>

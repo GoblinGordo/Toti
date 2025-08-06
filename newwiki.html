@@ -1,0 +1,388 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Inicio - Dirkelyon</title>
+  <link rel="stylesheet" href="indexstyles.css" />
+  <style>
+
+body {
+        /* background-image: url('1.jpg'); Imagen de Fondo Toti*/
+  background-color: #303030;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+  background-size: cover;
+}
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 1em;
+      margin-top: 20px;
+      align-items: center;
+    }
+    input[type="text"], select {
+      padding: 8	px;
+      font-size: 1em;
+    }
+    .subfilter {
+      display: none;
+    }
+   .card-list {
+  display: grid;
+  grid-template-columns: repeat(5, minmax(250px, 1fr)); /* columnas con ancho mínimo y máximo flexible */
+  gap: 20px;
+  margin: 30px auto;      /* centrar horizontalmente con margen automático */
+  max-width: 1400px;      /* limitar ancho máximo para que no se extienda mucho */
+  padding: 0 20px;        /* algo de espacio a los lados */
+  justify-content: center; /* centrar la grid dentro del contenedor */
+}
+
+.card img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 8px;
+  margin-bottom: 0px;
+  object-fit: cover;        /* recorta la imagen si es necesario */
+}
+
+@media (max-width: 768px) {
+  .card-list {
+    grid-template-columns: repeat(2, 1fr);
+    max-width: 600px;
+    padding: 0 10px;
+  }
+}
+    .card h3 {
+      margin: 0px 0 0px;
+      color: white;
+
+    }
+    .type, .meta {
+      font-size: 0.9em;
+      color: white;
+    }
+  </style>
+
+</head>
+<body>
+
+  <!-- Banner principal -->
+  <header class="banner">
+	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image active" />
+  	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+  	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+  	<img src="logo.png" alt="Logo Fijo" class="banner-logo" />
+
+
+</header>
+  </header>
+
+  <!-- Menú de navegación -->
+  <nav class="nav-container">
+    <button class="menu-toggle"id="menuButton"onclick="toggleMenu()">☰ Menú</button>
+    <div class="menu" id="navMenu">
+
+
+      <a href="index.html">Inicio</a>
+      <a href="newwiki.html">Wiki</a>
+      <a href="rules.html">Reglas</a>
+      <a href="jugar.html">Jugar</a>
+      <a href="competitivo.html">Competitivo</a>
+      <a href="lore.html">Lore</a>
+      <a href="deckbuild.html">Crear Mazo</a>
+	  <a href="index.html#aboutus">Sobre Nosotros</a>
+      <a href="index.html#contact">Contactar</a>
+
+
+
+    </div>
+
+
+
+  </nav>
+
+  <script>
+   function toggleMenu() {
+  const navMenu = document.getElementById("navMenu");
+  const menuButton = document.getElementById("menuButton");
+
+  navMenu.classList.toggle("active");
+
+  // Cambiar el texto del botón
+  if (navMenu.classList.contains("active")) {
+    menuButton.textContent = "✖";
+    document.body.style.overflow = "hidden"; // Desactiva scroll
+  } else {
+    menuButton.textContent = "☰ Menú";
+    document.body.style.overflow = "auto"; // Vuelve a activar scroll
+  }
+}
+
+  // Carrusel del banner
+  const images = document.querySelectorAll('.banner-image');
+  let currentIndex = 0;
+  const intervalTime = 4000;
+
+  function showNextImage() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+  }
+
+  setInterval(showNextImage, intervalTime);
+  </script>
+
+
+
+<main class="container">
+   <section class="intro">
+  <div class="container">
+    <h1 align="left	">Wiki de cartas</h1>
+    <p> Ante ti, se alza la gran biblioteca Dirkelyon. Esta wiki reúne toda la información esencial sobre Dirkelyon, el juego de cartas de estrategia y forja. Aquí encontrarás reglas detalladas, descripciones de cartas, mecánicas avanzadas, términos clave, lore expandido y más.
+
+Tanto si estás empezando como si ya eres un jugador experimentado, este es tu punto de referencia para explorar el mundo de Dirkelyon y dominar su sistema de juego.</p>
+<br>       
+    </div>
+
+
+    </p>
+  </div>
+</section>
+
+      <input type="text" id="searchInput" placeholder="Buscar por nombre..." />
+      
+      <select id="typeFilter">
+        <option value="">Filtrar por tipo de carta</option>
+        <option value="Obra Maestra">Obra Maestra</option>
+        <option value="Ritual">Ritual</option>
+        <option value="Fábrica">Fábrica</option>
+        <option value="Magisterio">Magisterio</option>
+      </select>
+
+      <!-- Subfiltros -->
+      <select id="metalFilter" class="subfilter">
+        <option value="">Filtrar por metal</option>
+        <option value="Sulffaryo">Sulffaryo</option>
+        <option value="Damascys">Damascys</option>
+        <option value="Jehryon">Jehryon</option>
+      </select>
+
+      <select id="costFilter" class="subfilter">
+        <option value="">Filtrar por coste</option>
+        <option value="0">0</option>
+        <option value="1">1</option>
+        <option value="2">2</option>
+        <option value="3">3</option>
+        <option value="4">4</option>
+      </select>
+
+      <select id="masteryFilter" class="subfilter">
+        <option value="">Filtrar por maestría</option>
+        <option value="Maestría en Sulffaryo">Maestría en Sulffaryo</option>
+        <option value="Maestría en Damascys">Maestría en Damascys</option>
+        <option value="Maestría en Jehryon">Maestría en Jehryon</option>
+      </select>
+    </div>
+
+    <section class="card-list" id="cardList"></section>
+
+      </main>
+
+  <script>
+    const cards = [
+      {
+        name: "Vasija Fundidora",
+        type: "Obra Maestra",
+        metal: "Jehryon",
+        cost: 0,
+        image: "1.jpg",
+
+      },
+      {
+        name: "Candelabro de Tsurabban",
+        type: "Obra Maestra",
+        metal: "Sulffaryo",
+        cost: 1,
+        image: "1.jpg",
+      },
+      {
+        name: "Cimitarra de Damascys",
+        type: "Obra Maestra",
+        metal: "Damascys",
+        cost: 4,
+        image: "1.jpg",
+      },
+      {
+        name: "Derretir",
+        type: "Ritual",
+        mastery: "Maestría en Sulffaryo",
+        image: "1.jpg",
+      },
+      {
+        name: "Magisterio de Forehregans",
+        type: "Magisterio",
+        image: "1.jpg",
+      },
+      
+      {
+        name: "Torre de Tsyron",
+        type: "Fábrica",
+        image: "1.jpg",
+      },
+{
+        name: "Vasija Fundidora",
+        type: "Obra Maestra",
+        metal: "Jehryon",
+        cost: 0,
+        image: "1.jpg",
+
+      },
+      {
+        name: "Candelabro de Tsurabban",
+        type: "Obra Maestra",
+        metal: "Sulffaryo",
+        cost: 1,
+        image: "1.jpg",
+      },
+      {
+        name: "Cimitarra de Damascys",
+        type: "Obra Maestra",
+        metal: "Damascys",
+        cost: 4,
+        image: "1.jpg",
+      },
+      {
+        name: "Derretir",
+        type: "Ritual",
+        mastery: "Maestría en Sulffaryo",
+        image: "1.jpg",
+      },
+      {
+        name: "Magisterio de Forehregans",
+        type: "Magisterio",
+        image: "1.jpg",
+      },
+      
+      {
+        name: "Torre de Tsyron",
+        type: "Fábrica",
+        image: "1.jpg",
+      },
+    
+
+];
+
+    const searchInput = document.getElementById("searchInput");
+    const typeFilter = document.getElementById("typeFilter");
+    const metalFilter = document.getElementById("metalFilter");
+    const costFilter = document.getElementById("costFilter");
+    const masteryFilter = document.getElementById("masteryFilter");
+    const cardList = document.getElementById("cardList");
+
+    function updateSubfilters() {
+      // Ocultar todos
+      [metalFilter, costFilter, masteryFilter].forEach(f => f.classList.add("subfilter"));
+
+      const selectedType = typeFilter.value;
+      if (selectedType === "Obra Maestra") {
+        metalFilter.classList.remove("subfilter");
+        costFilter.classList.remove("subfilter");
+      } else if (selectedType === "Ritual") {
+        masteryFilter.classList.remove("subfilter");
+      } else if (selectedType === "Fábrica") {
+        metalFilter.classList.remove("subfilter");
+      }
+    }
+
+    function renderCards(filteredCards) {
+      cardList.innerHTML = "";
+      if (filteredCards.length === 0) {
+        cardList.innerHTML = "<p>Esa carta aún no ha sido descubierta por Artesano alguno.</p>";
+        return;
+      }
+
+      filteredCards.forEach(card => {
+        const cardEl = document.createElement("div");
+        cardEl.className = "card";
+        cardEl.innerHTML = `
+          <a href="carta.html?id=${encodeURIComponent(card.name.toLowerCase().replace(/ /g, '-'))}">
+  <img src="${card.image}" alt="${card.name}" style="cursor:pointer;">
+</a>
+                          `;
+        cardList.appendChild(cardEl);
+      });
+    }
+
+    function filterCards() {
+      const search = searchInput.value.toLowerCase();
+      const type = typeFilter.value;
+      const metal = metalFilter.value;
+      const cost = costFilter.value;
+      const mastery = masteryFilter.value;
+
+      const filtered = cards.filter(card => {
+        const matchesName = card.name.toLowerCase().includes(search);
+        const matchesType = type ? card.type === type : true;
+
+        let matchesMetal = true, matchesCost = true, matchesMastery = true;
+
+        if (type === "Obra Maestra") {
+          matchesMetal = metal ? card.metal === metal : true;
+          matchesCost = cost ? card.cost === parseInt(cost) : true;
+        } else if (type === "Fábrica") {
+          matchesMetal = metal ? card.metal === metal : true;
+        } else if (type === "Ritual") {
+          matchesMastery = mastery ? card.mastery === mastery : true;
+        }
+
+        return matchesName && matchesType && matchesMetal && matchesCost && matchesMastery;
+      });
+
+      renderCards(filtered);
+    }
+
+    // Eventos
+    searchInput.addEventListener("input", filterCards);
+    typeFilter.addEventListener("change", () => {
+      updateSubfilters();
+      filterCards();
+    });
+    metalFilter.addEventListener("change", filterCards);
+    costFilter.addEventListener("change", filterCards);
+    masteryFilter.addEventListener("change", filterCards);
+
+    // Inicial
+    updateSubfilters();
+    renderCards(cards);
+  </script>
+
+
+
+
+</body>
+
+<footer class="site-footer">
+  <div class="footer-container">
+    <div class="footer-left">
+      <h4>Contacto</h4>
+      <p>Email: dirkelyon@gmail.com</p>
+      <p>Teléfono: +34 611 103 078</p>
+    </div>
+    <div class="footer-center">
+      <h4>Síguenos</h4>
+      <p>
+        <a href="https://www.instagram.com/dirkelyon?igsh=MWo4OGYyOTNtYzJ5cw==">Instagram</a>
+      </p>
+    </div>
+    <div class="footer-right">
+      <h4>Legal</h4>
+      <p>&copy; 2025 Dirkelyon. Todos los derechos reservados.</p>
+      <p><a href="#">Política de privacidad</a></p>
+    </div>
+  </div>
+</footer>
+
+
+
+</html>

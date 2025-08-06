@@ -1,0 +1,385 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Constructor de Mazos - Dirkelyon</title>
+  <link rel="stylesheet" href="indexstyles.css" />
+  <style>
+   body {
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #1b1b1b;
+      color: #fff;
+      margin: 0;
+      padding: 0;
+    }
+
+    .deckbuilder-container {
+      display: flex;
+      gap: 30px;
+      padding: 40px;
+      justify-content: space-between;
+	  
+    }
+
+    .search-section {
+      flex: 1;
+    }
+
+    .search-section input[type="text"] {
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      margin-bottom: 20px;
+      border-radius: 6px;
+      border: none;
+    }
+
+    .card-list {
+      list-style: none;
+      padding: 0;
+    }
+
+    .card-item {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #2a2a2a;
+      margin-bottom: 10px;
+      padding: 12px 16px;
+      border-radius: 6px;
+    }
+
+    .card-info {
+      flex: 1;
+    }
+
+    .card-info a {
+      color: #2a9d8f;
+      text-decoration: underline;
+      font-size: 0.9em;
+    }
+
+    .add-btn {
+      background-image: url('button.png');
+      background-size: cover;
+      background-repeat: no-repeat;
+      background-position: center;
+      color: white;
+      font-weight: bold;
+      border: none;
+      border-radius: 0px;
+      padding: 10px 36px;
+      cursor: pointer;
+    }
+
+    .add-btn:hover {
+      opacity: 0.9;
+      transform: scale(1.05);
+    }
+
+    .deck-section {
+      flex: 1;
+      background-color: #5c1e1e;
+      padding: 20px;
+      border-radius: 10px;
+      position: sticky;
+      margin-top: 100px;
+      height: fit-content;
+	  
+    }
+
+    .deck-section h2 {
+      margin-top: 0;
+      color: #fff0f0;
+	  
+    }
+
+    .deck-section input[type="text"] {
+      width: 100%;
+      padding: 8px;
+      margin: 10px 0;
+      border-radius: 4px;
+      border: none;
+    }
+
+    .deck-list {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .deck-item {
+      margin-bottom: 10px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .deck-item select {
+      margin-left: auto;
+      font-size: 1.1em;
+      padding: 5px 10px;
+    }
+
+    .remove-btn {
+      background-color: #990000;
+      color: white;
+      border: none;
+      padding: 6px 10px;
+      border-radius: 4px;
+      cursor: pointer;
+    }
+
+    .remove-btn:hover {
+      background-color: #cc0000;
+    }
+
+    .generate-button {
+      margin-top: 20px;
+      width: 100%;
+      padding: 12px;
+      font-size: 1em;
+      background-color: #222;
+      color: #fff;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+
+    .generate-button:hover {
+      background-color: #444;
+    }
+
+    label {
+      display: block;
+      margin-top: 10px;
+      font-weight: bold;
+      color: #ffeaea;
+    }
+	
+	.deck-meta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+}
+
+.deck-meta .deck-field {
+  flex: 1;
+  min-width: 200px;
+}
+
+@media (max-width: 768px) {
+  .deck-meta {
+    flex-direction: column;
+  }
+}
+	@media (max-width: 768px) {
+  .deckbuilder-container {
+    flex-direction: column-reverse;
+  }
+}
+  .deck-section {
+    margin-top: 0; /* quitar margen innecesario en móvil */
+  }
+}
+  </style>
+</head>
+<body>
+
+  <!-- Banner principal -->
+  <header class="banner">
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image active" />
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+    <img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+    <img src="logo.png" alt="Logo Fijo" class="banner-logo" />
+  </header>
+
+  <!-- Menú de navegación -->
+  <nav class="nav-container">
+    <button class="menu-toggle" id="menuButton" onclick="toggleMenu()">☰ Menú</button>
+    <div class="menu" id="navMenu">
+     <a href="index.html">Inicio</a>
+      <a href="newwiki.html">Wiki</a>
+      <a href="rules.html">Reglas</a>
+      <a href="jugar.html">Jugar</a>
+      <a href="competitivo.html">Competitivo</a>
+      <a href="lore.html">Lore</a>
+      <a href="deckbuild.html">Crear Mazo</a>
+	  <a href="index.html#aboutus">Sobre Nosotros</a>
+      <a href="index.html#contact">Contactar</a>
+    </div>
+  </nav>
+
+  <section class="intro">
+    <div class="container">
+      <h1 align="left">Creador de Mazos</h1>
+      <p>
+        Forja tu propio mazo personalizado con el <strong>Constructor de Mazos</strong>.
+        Si lo necesitas, revisa las <a href="rules.html#construccionmazo" style="color:#2a9d8f; text-decoration:underline;">reglas de construcción</a>.
+      </p>
+    </div>
+  </section>
+
+  <main class="deckbuilder-container">
+    <!-- Buscador -->
+    <section class="search-section">
+      <h1>Buscador de Cartas</h1><br>
+      <input type="text" id="searchInput" placeholder="Buscar por nombre..." />
+      <ul id="cardList" class="card-list"></ul>
+    </section>
+
+    <!-- Mazo actual -->
+    <aside class="deck-section">
+      <h2>Listado de cartas de tu mazo</h2>
+      <div class="deck-meta">
+        <div class="deck-field">
+          <label for="deckName">Nombre del mazo:</label>
+          <input type="text" id="deckName" placeholder="Nombre del Mazo" />
+        </div>
+        <div class="deck-field">
+          <label for="creatorName">Artesano creador de este mazo:</label>
+          <input type="text" id="creatorName" placeholder="Nombre del Artesano" />
+        </div>
+      </div>
+      <ul id="deckList" class="deck-list"></ul>
+      <button class="generate-button" onclick="generateDeck()">Generar Lista</button>
+    </aside>
+  </main>
+	
+  <script>
+  function toggleMenu() {
+    const navMenu = document.getElementById("navMenu");
+    const menuButton = document.getElementById("menuButton");
+    navMenu.classList.toggle("active");
+    if (navMenu.classList.contains("active")) {
+      menuButton.textContent = "✖";
+      document.body.style.overflow = "hidden";
+    } else {
+      menuButton.textContent = "☰ Menú";
+      document.body.style.overflow = "auto";
+    }
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    const cards = [
+      { number: 1, name: "Vasija Fundidora", page: "carta.html?id=vasija-fundidora" },
+      { number: 2, name: "Candelabro de Tsurabban", page: "carta.html?id=candelabro-de-tsurabban" },
+      { number: 3, name: "Cimitarra de Damascys", page: "carta.html?id=cimitarra-de-damascys" },
+      { number: 4, name: "Derretir", page: "carta.html?id=derretir" },
+      { number: 5, name: "Fragmento Errante", page: "carta.html?id=fragmento‑errante" }
+    ];
+    const deck = [];
+    const searchInput = document.getElementById("searchInput");
+    const cardList = document.getElementById("cardList");
+    const deckList = document.getElementById("deckList");
+
+    function renderCardList(filter="") {
+      cardList.innerHTML = "";
+      cards.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()))
+           .forEach(card => {
+        const li = document.createElement("li"); li.className = "card-item";
+        const info = document.createElement("div"); info.className = "card-info";
+        info.innerHTML = `<strong>#${card.number}</strong> - ${card.name}<br>
+          <a href="${card.page}" target="_blank">Más info</a>`;
+        const btn = document.createElement("button"); btn.className = "add-btn";
+        btn.textContent = "Añadir";
+        btn.onclick = () => addToDeck(card.name);
+        li.appendChild(info); li.appendChild(btn);
+        cardList.appendChild(li);
+      });
+    }
+
+    function addToDeck(name) {
+      const item = deck.find(c => c.name === name);
+      if (item) {
+        if (item.count < 10) item.count++;
+      } else {
+        deck.push({ name, count: 1 });
+      }
+      renderDeck();
+    }
+
+    function renderDeck() {
+      deckList.innerHTML = "";
+      deck.forEach(c => {
+        const li = document.createElement("li"); li.className = "deck-item";
+        const label = document.createElement("span"); label.textContent = c.name;
+        const select = document.createElement("select");
+        for (let i = 1; i <= 10; i++) {
+          const opt = document.createElement("option");
+          opt.value = i; opt.textContent = i;
+          if (i === c.count) opt.selected = true;
+          select.appendChild(opt);
+        }
+        select.onchange = () => { c.count = parseInt(select.value); };
+        const removeBtn = document.createElement("button");
+        removeBtn.className = "remove-btn"; removeBtn.textContent = "✖";
+        removeBtn.onclick = () => {
+          deck.splice(deck.indexOf(c), 1);
+          renderDeck();
+        };
+        li.appendChild(label); li.appendChild(select); li.appendChild(removeBtn);
+        deckList.appendChild(li);
+      });
+    }
+
+    function generateDeck() {
+      const deckName = document.getElementById("deckName").value.trim() || "Mazo_Dirkelyon";
+      const creator = document.getElementById("creatorName").value.trim() || "Anónimo";
+      let content = `Nombre del Mazo: ${deckName}\nForjado por el Maestro Artesano ${creator}\n\n`;
+      deck.forEach(c => { content += `${c.count}x ${c.name}\n`; });
+
+      const params = deck.map(c => encodeURIComponent(c.name) + ":" + c.count).join(",");
+      const loadUrl = window.location.origin + window.location.pathname + "?deck=" + params;
+      content += `\nLink para editar este mazo:\n${loadUrl}\n`;
+
+      const blob = new Blob([content], { type: "text/plain" });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement("a");
+      a.href = url;
+      a.download = `${deckName.replace(/\s+/g, '_')}.txt`;
+      a.click();
+      URL.revokeObjectURL(url);
+    }
+
+    // Cargar desde URL si existe
+    const params = new URLSearchParams(window.location.search);
+    const deckParam = params.get("deck");
+    if (deckParam) {
+      deckParam.split(",").forEach(e => {
+        const [nEsc, cStr] = e.split(":");
+        const name = decodeURIComponent(nEsc);
+        const cnt = parseInt(cStr);
+        if (name && cnt) deck.push({ name, count: cnt });
+      });
+      renderDeck();
+    }
+
+    searchInput.addEventListener("input", () => renderCardList(searchInput.value));
+    renderCardList();
+  });
+  </script>
+
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <h4>Contacto</h4>
+        <p>Email: dirkelyon@gmail.com</p>
+        <p>Teléfono: +34 611 103 078</p>
+      </div>
+      <div class="footer-center">
+        <h4>Síguenos</h4>
+        <p><a href="https://www.instagram.com/dirkelyon">Instagram</a></p>
+      </div>
+      <div class="footer-right">
+        <h4>Legal</h4>
+        <p>&copy; 2025 Dirkelyon. Todos los derechos reservados.</p>
+        <p><a href="#">Política de privacidad</a></p>
+      </div>
+    </div>
+  </footer>
+
+</body>
+</html>

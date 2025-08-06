@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Reglas - Dirkelyon</title>
+  <link rel="stylesheet" href="indexstyles.css" />
+<style>.reglas-page-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 40px 20px;
+  gap: 40px;
+  scroll-behavior: smooth;
+}
+
+.reglas-sumario {
+  flex-shrink: 0;
+  width: 300px;
+  background-color: #f7f7f7;
+  border: 2px solid #ccc;
+  border-radius: 8px;
+  padding: 20px;
+  position: sticky;
+  top: 120px;
+  height: fit-content;
+}
+
+.reglas-sumario h3,
+.reglas-sumario h4 {
+  margin-top: 0;
+}
+
+.reglas-sumario ul {
+  list-style: none;
+  padding-left: 0;
+  margin-bottom: 20px;
+}
+
+.reglas-sumario li {
+  margin-bottom: 10px;
+}
+
+.reglas-sumario a {
+  text-decoration: none;
+  color: #264653;
+  font-weight: 500;
+}
+
+.reglas-sumario a:hover {
+  color: #2a9d8f;
+  text-decoration: underline;
+}
+
+.sumario-avanzado {
+  font-size: 0.85em;
+  list-style-type: square;
+  padding-left: 15px;
+}
+
+/* Contenido principal */
+.reglas-contenido {
+  flex: 1;
+  max-width: 900px;
+  text-align: justify;
+}
+
+/* Responsive: el sumario pasa arriba del contenido */
+@media (max-width: 992px) {
+  .reglas-page-wrapper {
+    flex-direction: column;
+  }
+
+  .reglas-sumario {
+    width: 100%;
+    position: static;
+    order: -1;
+  }
+}
+
+</style>
+</head>
+<body>
+
+  <!-- Banner -->
+  <header class="banner">
+   <img src="3.webp" alt="Dirkelyon Logo" class="banner-image active" />
+  	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+  	<img src="3.webp" alt="Dirkelyon Logo" class="banner-image" />
+    <img src="logo.png" alt="Logo Fijo" class="banner-logo" />
+  </header>
+
+  <!-- Navegación -->
+  <nav class="nav-container">
+    <button class="menu-toggle"id="menuButton"onclick="toggleMenu()">☰ Menú</button>
+    <div class="menu" id="navMenu">
+      <a href="index.html">Inicio</a>
+      <a href="newwiki.html">Wiki</a>
+      <a href="rules.html">Reglas</a>
+      <a href="jugar.html">Jugar</a>
+      <a href="competitivo.html">Competitivo</a>
+      <a href="lore.html">Lore</a>
+      <a href="deckbuild.html">Crear Mazo</a>
+	  <a href="index.html#aboutus">Sobre Nosotros</a>
+      <a href="index.html#contact">Contactar</a>
+
+
+  </nav>
+<!-- Introducción -->
+<section class="intro">
+  <div class="container">
+    <h1 align="left	">Reglamento Oficial</h1>
+    <p > Dirkelyon es un juego de cartas de estrategia donde cada jugador asume el papel de un Artesano, un ser forjador que domina los metales primigenios para crear obras maestras, ejecutar rituales y controlar el campo de batalla.
+
+En esta sección encontrarás todas las reglas necesarias para aprender a jugar, estructurar una partida, resolver combates y comprender las mecánicas clave del juego.</p>
+<br>       
+    </div>
+    </p>
+  </div>
+</section>
+ <div class="reglas-page-wrapper">
+  <!-- Sumario flotante a la izquierda -->
+  <aside class="reglas-sumario">
+    <h3>Reglas Básicas</h3>
+    <ul>
+      <li><a href="#inicio">1. 	Comienzo de la partida</a></li>
+      <li><a href="#turno">2. Comienzo del turno</a></li>
+      <li><a href="#fragua">3. Fase de Fragua</a></li>
+      <li><a href="#dirkelyon">4. Fase Dirkelyon</a></li>
+      <li><a href="#aclaraciones">5. Aclaraciones</a></li>
+      <li><a href="#ejemplo">6. Ejemplo</a></li>
+    </ul>
+
+    <hr />
+
+    <h4 style="font-size: 1em; margin-top: 20px;">Reglamento Avanzado</h4>
+    <ul class="sumario-avanzado">
+      <li><a href="#interacciones">Interacciones complejas</a></li>
+      <li><a href="#rituales">Tipos de rituales</a></li>
+      <li><a href="#contraataque">Reglas de contraataque</a></li>
+      <li><a href="#turno-extra">Turnos extra</a></li>
+      <li><a href="#archivos">Gestión de archivos</a></li>
+      <li><a href="#construccionmazo">Construcción de Mazos</a></li>
+    </ul>
+
+ <h4 style="font-size: 1em; margin-top: 20px;">Reglamento Minucioso</h4>
+    <ul class="sumario-avanzado">
+      <li><a href="#interacciones">Interacciones complejas</a></li>
+      <li><a href="#rituales">Tipos de rituales</a></li>
+      <li><a href="#contraataque">Reglas de contraataque</a></li>
+      <li><a href="#turno-extra">Turnos extra</a></li>
+      <li><a href="#archivos">Gestión de archivos</a></li>
+      <li><a href="#construccionmazo">Construcción de Mazos</a></li>
+    </ul>
+  </aside>
+
+  <!-- Contenido principal centrado -->
+  <main class="reglas-contenido">
+    <!-- Aquí todo tu contenido de reglas tal como ya lo tienes -->
+
+
+    <h1>¿Como se juega?</h1>
+
+    <p><strong>Dirkelyon</strong> es un juego de cartas coleccionables en el que dos artesanos se enfrentan en una batalla de forjas. Cada artesano comienza con <strong>12 puntos de vida</strong> que irá perdiendo durante la batalla, siendo derrotado al llegar a 0 (o menos). </p> 
+ <p></p><br>
+ <p>Para jugar una partida, necesitarás un Mazo de cartas Dirkelyon. Si no sabes como hacerte tu propio mazo, consulta  <a href="#construccionmazo">Reglas de construcción de Mazo</a></p>
+   
+
+
+    <h2 id="inicio">1. Comienzo de la partida</h2>
+    <p>Los dos Artesanos (jugadores) barajan sus respectivos mazos y dan a cortar al oponente. Acto seguido, tiran dos dados de 6 caras a la vez que dicen: "Dirkelyon!". El Artesano cuyo resultado sea mayor, comienza la partida.</p>  <p>Cada artesano roba 5 cartas de su mazo. Entonces, puede elegir y regresar al mazo cualquier cantidad de cartas. El jugador inicial no puede forjar cartas en Dirkelyon en su primer turno.</p>
+
+    <h2 id="turno">2. Comienzo del turno</h2>
+    <ul>
+      <li>Roba hasta tener 5 cartas. Si has contraatacado el turno anterior, en lugar de eso, roba hasta tener 2 cartas (Si tienes dos o más, no robas ninguna carta).</li>
+      <li>Puede descartar su mano entera.</li>
+      <li>Comienza la fase de Fragua.</li>
+
+
+    <h2 id="fragua">3. Fase de Fragua</h2>
+   <ul>
+      <li>Puede jugar un ritual.</li>
+      <li>Puede forjar:
+        <ul>
+          <li>Una Obra Maestra en la Fragua</li>
+          <li>Una Fábrica (siempre cuesta 1 metal)</li>
+          <li>Una Obra Maestra en Dirkelyon (comienza la fase Dirkelyon)</li>
+        </ul>
+      </li>
+    </ul>
+
+    <h2 id="dirkelyon">4. Fase Dirkelyon</h2>
+    <ol>
+      <li>El jugador forja una Obra Maestra.</li>
+      <li>Se activa su efecto Forjar.</li>
+      <li>Se activan los efectos Fundir de las obras usadas como coste.</li>
+      <li>El rival puede contraatacar con una Obra Maestra.</li>
+      <li>Si contraataca, activa también efectos Fundir.</li>
+      <li>Ambos jugadores pueden jugar un ritual Dirkelyon.</li>
+      <li>Se resuelven efectos Dirkelyon y rituales en orden inverso.</li>
+      <li>Las obras forjadas pasan a la Fragua, las fundidas a los archivos.</li>
+    </ol>
+
+    <h2 id="aclaraciones">5. Aclaraciones</h2>
+    <ul>
+      <li>Sólo puede jugarse un ritual por turno (si se jugó en la Fragua, no se puede en Dirkelyon).</li>
+      <li>Obras Maestras fundidas pierden efectos y maestría.</li>
+      <li>Tras la fase Dirkelyon, se vuelve a la Fragua.</li>
+      <li>Durante Dirkelyon sólo pueden jugarse rituales Dirkelyon.</li>
+      <li>Si se acaba el mazo, se barajan los archivos y se convierten en el nuevo mazo.</li>
+    </ul>
+
+    <h2 id="ejemplo">6. Ejemplo</h2>
+    <p>..Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum.Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s, when an unknown printer took a galley of type and scrambled it to make a type specimen book. It has survived not only five centuries, but also the leap into electronic typesetting, remaining essentially unchanged. It was popularised in the 1960s with the release of Letraset sheets containing Lorem Ipsum passages, and more recently with desktop publishing software like Aldus PageMaker including versions of Lorem Ipsum..</p>
+
+
+<h2 id="interacciones">Interacciones complejas</h2>
+<p>Describe cómo se resuelven habilidades que se activan al mismo tiempo, efectos encadenados, etc.</p>
+
+<h2 id="rituales">Tipos de rituales</h2>
+<p>Explica la diferencia entre rituales comunes y rituales Dirkelyon, condiciones y efectos.</p>
+
+<h2 id="contraataque">Reglas de contraataque</h2>
+<p>Describe el uso estratégico del contraataque y cuándo es más efectivo.</p>
+
+<h2 id="turno-extra">Turnos extra</h2>
+<p>Casos en los que se otorgan turnos adicionales, y cómo se gestionan en la ronda.</p>
+
+<h2 id="archivos">Gestión de archivos</h2>
+<p>Cómo usar los archivos como recurso y cómo se barajan al agotarse el mazo.</p>
+
+<h2 id="construccionmazo">Reglas de Construcción de Mazos</h2>
+<p>Tenemos 2 formatos de momento, el formato Duelo (2 jugadores) y el formato Coliseo (3 o más jugadores)</p>
+
+  </section>
+</main>
+</div>
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="footer-container">
+      <div class="footer-left">
+        <h4>Contacto</h4>
+        <p>Email: dirkelyon@gmail.com</p>
+        <p>Teléfono: +34 611 103 078</p>
+      </div>
+      <div class="footer-center">
+        <h4>Síguenos</h4>
+        <p><a href="https://www.instagram.com/dirkelyon?igsh=MWo4OGYyOTNtYzJ5cw==">Instagram</a></p>
+      </div>
+      <div class="footer-right">
+        <h4>Legal</h4>
+        <p>&copy; 2025 Dirkelyon. Todos los derechos reservados.</p>
+        <p><a href="#">Política de privacidad</a></p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- JS -->
+  <script>
+   function toggleMenu() {
+  const navMenu = document.getElementById("navMenu");
+  const menuButton = document.getElementById("menuButton");
+
+  navMenu.classList.toggle("active");
+
+  // Cambiar el texto del botón
+  if (navMenu.classList.contains("active")) {
+    menuButton.textContent = "✖";
+    document.body.style.overflow = "hidden"; // Desactiva scroll
+  } else {
+    menuButton.textContent = "☰ Menú";
+    document.body.style.overflow = "auto"; // Vuelve a activar scroll
+  }
+}
+
+  // Carrusel del banner
+  const images = document.querySelectorAll('.banner-image');
+  let currentIndex = 0;
+  const intervalTime = 4000;
+
+  function showNextImage() {
+    images[currentIndex].classList.remove('active');
+    currentIndex = (currentIndex + 1) % images.length;
+    images[currentIndex].classList.add('active');
+  }
+
+  setInterval(showNextImage, intervalTime);
+
+  </script>
+</body>
+</html>
