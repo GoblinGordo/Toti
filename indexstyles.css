@@ -21,7 +21,6 @@ body {
 /* --- BOTÓN DE MENÚ --- */
 .menu-toggle {
   display: none;
-  position: relative;
   background-color: transparent;
   color: white;
   border: none;
