@@ -257,14 +257,18 @@
     }
   }
 
-  const cards = [
-    { name: "Vasija Fundidora",        page: "carta.html?id=vasija-fundidora" },
-    { name: "Candelabro de Tsurabban", page: "carta.html?id=candelabro-de-tsurabban" },
-    { name: "Cimitarra de Damascys",   page: "carta.html?id=cimitarra-de-damascys" },
-    { name: "Derretir",                page: "carta.html?id=derretir" },
-    { name: "Fragmento Errante",       page: "carta.html?id=fragmento‑errante" }
-  ];
-  const deck = [];
+  const _URL = new URL(window.location.href);
+  const DIRKELYON = {
+    CARD_LIMIT: 10,
+    CARDS: [
+      { name: "Vasija Fundidora",        page: "vasija-fundidora" },
+      { name: "Candelabro de Tsurabban", page: "candelabro-de-tsurabban" },
+      { name: "Cimitarra de Damascys",   page: "cimitarra-de-damascys" },
+      { name: "Derretir",                page: "derretir" },
+      { name: "Fragmento Errante",       page: "fragmento‑errante" }
+    ]
+  };
+  const deck = []; // [ [ id, count], ... ]
   const searchInput = document.getElementById("searchInput");
   const cardList = document.getElementById("cardList");
   const deckList = document.getElementById("deckList");
@@ -277,9 +281,9 @@
     const exp  = expresion.toLowerCase()
     const patt = pattern.toLowerCase()
 
-    for(let iExp = 0; iExp < exp.length; ++iExp) {
-      if(exp.charAt(iExp) == patt.charAt(iPatt)){
-        if(++iPatt == patt.length) return true;
+    for (let iExp = 0; iExp < exp.length; ++iExp) {
+      if (exp.charAt(iExp) == patt.charAt(iPatt)){
+        if (++iPatt == patt.length) return true;
       }
     }
 
@@ -288,42 +292,46 @@
 
   function renderCardList(filter) {
     cardList.innerHTML = "";
-    cards.filter(c => fuzzyFinder(c.name, filter || "")).forEach((card, index) => {
+    DIRKELYON.CARDS.filter(c => fuzzyFinder(c.name, filter || "")).forEach((card, index) => {
       const li = document.createElement("li"); li.className = "card-item";
+
       const info = document.createElement("div"); info.className = "card-info";
-      info.innerHTML = `<strong>#${index+1}</strong> - ${card.name}<br>
-        <a href="${card.page}" target="_blank">Más info</a>`;
+      const href = "carta.html?id=" + card.page 
+      info.innerHTML = `<strong>#${index+1}</strong> - ${card.name}<br><a href="${href}" target="_blank">Más info</a>`;
+      li.appendChild(info);
+
       const btn = document.createElement("button"); btn.className = "add-btn";
       btn.textContent = "Añadir";
-      btn.onclick = () => addToDeck(card.name);
-      li.appendChild(info); li.appendChild(btn);
+      btn.onclick = () => {
+        const item = deck.find(c => c[0] == index);
+        if (item){
+          if (item[1] < 10) ++item[1];
+        } else {
+          deck.push([index, 1]);
+        }
+        renderDeck();
+      };
+      li.appendChild(btn);
+
       cardList.appendChild(li);
     });
   }
 
-  function addToDeck(name) {
-    const item = deck.find(c => c.name === name);
-    if (item) {
-      if (item.count < 10) item.count++;
-    } else {
-      deck.push({ name, count: 1 });
-    }
-    renderDeck();
+  const template_select = document.createElement("select");
+  for (let i = 1; i <= 10; i++) {
+    const opt = document.createElement("option");
+    opt.textContent = i;
+    template_select.appendChild(opt);
   }
 
   function renderDeck() {
     deckList.innerHTML = "";
-    deck.forEach(c => {
+    deck.sort((a, b) => a[0] - b[0]).forEach(c => {
       const li = document.createElement("li"); li.className = "deck-item";
-      const label = document.createElement("span"); label.textContent = c.name;
-      const select = document.createElement("select");
-      for (let i = 1; i <= 10; i++) {
-        const opt = document.createElement("option");
-        opt.value = i; opt.textContent = i;
-        if (i === c.count) opt.selected = true;
-        select.appendChild(opt);
-      }
-      select.onchange = () => { c.count = parseInt(select.value); };
+      const label = document.createElement("span"); label.textContent = DIRKELYON.CARDS[c[0]].name;
+      const select = template_select.cloneNode(true);
+      select.value = c[1]
+      select.onchange = () => { c[1] = parseInt(select.value); updateParameters(); };
       const removeBtn = document.createElement("button");
       removeBtn.className = "remove-btn"; removeBtn.textContent = "✖";
       removeBtn.onclick = () => {
@@ -333,15 +341,16 @@
       li.appendChild(label); li.appendChild(select); li.appendChild(removeBtn);
       deckList.appendChild(li);
     });
+    updateParameters();
   }
 
   function generateDeck() {
     const deckName = document.getElementById("deckName").value.trim() || "Mazo_Dirkelyon";
     const creator = document.getElementById("creatorName").value.trim() || "Anónimo";
     let content = `Nombre del Mazo: ${deckName}\nForjado por el Maestro Artesano ${creator}\n\n`;
-    deck.forEach(c => { content += `${c.count}x ${c.name}\n`; });
+    deck.forEach(c => { content += `${c[1]}x ${DIRKELYON.CARDS[c[0]].name}\n`; });
 
-    const params = deck.map(c => encodeURIComponent(c.name) + ":" + c.count).join(",");
+    const params = deck.map(c => encodeURIComponent(DIRKELYON.CARDS[c[0]].name) + ":" + c.count).join(",");
     const loadUrl = window.location.origin + window.location.pathname + "?deck=" + params;
     content += `\nLink para editar este mazo:\n${loadUrl}\n`;
 
@@ -354,21 +363,32 @@
     URL.revokeObjectURL(url);
   }
 
-  // Cargar desde URL si existe
-  const params = new URLSearchParams(window.location.search);
-  const deckParam = params.get("deck");
-  if (deckParam) {
-    deckParam.split(",").forEach(e => {
-      const [nEsc, cStr] = e.split(":");
-      const name = decodeURIComponent(nEsc);
-      const cnt = parseInt(cStr);
-      if (name && cnt) deck.push({ name, count: cnt });
+  searchInput.addEventListener("input", () => renderCardList(searchInput.value));
+  renderCardList();
+
+  function updateParameters(){
+    if(deck.length == 0){
+      _URL.searchParams.delete("deck");
+      window.history.pushState({}, '', _URL);
+      return
+    }
+    const len = deck.length * 2
+    let buffer = []
+    for (let i=0; i < deck.length; ++i) buffer.push(deck[i][0] + "." + deck[i][1]);
+    _URL.searchParams.set("deck", buffer.join("_"));
+    window.history.pushState({}, '', _URL);
+  }
+
+  let pDeck = _URL.searchParams.get("deck");
+  if (pDeck){
+    pDeck.split("_").forEach((v) => {
+      try {
+        const values = v.split(".");
+        deck.push([parseInt(values[0]), parseInt(values[1])]);
+      } catch (e) {}
     });
     renderDeck();
   }
-
-  searchInput.addEventListener("input", () => renderCardList(searchInput.value));
-  renderCardList();
   </script>
 
   <footer class="site-footer">
