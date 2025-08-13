@@ -6,7 +6,7 @@
   <title>Constructor de Mazos - Dirkelyon</title>
   <link rel="stylesheet" href="indexstyles.css" />
   <style>
-   body {
+    body {
       font-family: 'Segoe UI', sans-serif;
       background-color: #1b1b1b;
       color: #fff;
@@ -19,7 +19,6 @@
       gap: 30px;
       padding: 40px;
       justify-content: space-between;
-	  
     }
 
     .search-section {
@@ -86,13 +85,11 @@
       position: sticky;
       margin-top: 100px;
       height: fit-content;
-	  
     }
 
     .deck-section h2 {
       margin-top: 0;
       color: #fff0f0;
-	  
     }
 
     .deck-section input[type="text"] {
@@ -158,32 +155,30 @@
       font-weight: bold;
       color: #ffeaea;
     }
-	
-	.deck-meta {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 20px;
-}
 
-.deck-meta .deck-field {
-  flex: 1;
-  min-width: 200px;
-}
+    .deck-meta {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 20px;
+    }
 
-@media (max-width: 768px) {
-  .deck-meta {
-    flex-direction: column;
-  }
-}
-	@media (max-width: 768px) {
-  .deckbuilder-container {
-    flex-direction: column-reverse;
-  }
-}
-  .deck-section {
-    margin-top: 0; /* quitar margen innecesario en móvil */
-  }
-}
+    .deck-meta .deck-field {
+      flex: 1;
+      min-width: 200px;
+    }
+
+    @media (max-width: 768px) {
+      .deck-meta {
+        flex-direction: column;
+      }
+      .deckbuilder-container {
+        flex-direction: column-reverse;
+      }
+    }
+
+    .deck-section {
+      margin-top: 0; /* quitar margen innecesario en móvil */
+    }
   </style>
 </head>
 <body>
@@ -200,14 +195,14 @@
   <nav class="nav-container">
     <button class="menu-toggle" id="menuButton" onclick="toggleMenu()">☰ Menú</button>
     <div class="menu" id="navMenu">
-     <a href="index.html">Inicio</a>
+      <a href="index.html">Inicio</a>
       <a href="newwiki.html">Wiki</a>
       <a href="rules.html">Reglas</a>
       <a href="jugar.html">Jugar</a>
       <a href="competitivo.html">Competitivo</a>
       <a href="lore.html">Lore</a>
       <a href="deckbuild.html">Crear Mazo</a>
-	  <a href="index.html#aboutus">Sobre Nosotros</a>
+      <a href="index.html#aboutus">Sobre Nosotros</a>
       <a href="index.html#contact">Contactar</a>
     </div>
   </nav>
@@ -247,7 +242,7 @@
       <button class="generate-button" onclick="generateDeck()">Generar Lista</button>
     </aside>
   </main>
-	
+
   <script>
   function toggleMenu() {
     const navMenu = document.getElementById("navMenu");
@@ -262,104 +257,118 @@
     }
   }
 
-  document.addEventListener("DOMContentLoaded", () => {
-    const cards = [
-      { number: 1, name: "Vasija Fundidora", page: "carta.html?id=vasija-fundidora" },
-      { number: 2, name: "Candelabro de Tsurabban", page: "carta.html?id=candelabro-de-tsurabban" },
-      { number: 3, name: "Cimitarra de Damascys", page: "carta.html?id=cimitarra-de-damascys" },
-      { number: 4, name: "Derretir", page: "carta.html?id=derretir" },
-      { number: 5, name: "Fragmento Errante", page: "carta.html?id=fragmento‑errante" }
-    ];
-    const deck = [];
-    const searchInput = document.getElementById("searchInput");
-    const cardList = document.getElementById("cardList");
-    const deckList = document.getElementById("deckList");
+  const cards = [
+    { name: "Vasija Fundidora",        page: "carta.html?id=vasija-fundidora" },
+    { name: "Candelabro de Tsurabban", page: "carta.html?id=candelabro-de-tsurabban" },
+    { name: "Cimitarra de Damascys",   page: "carta.html?id=cimitarra-de-damascys" },
+    { name: "Derretir",                page: "carta.html?id=derretir" },
+    { name: "Fragmento Errante",       page: "carta.html?id=fragmento‑errante" }
+  ];
+  const deck = [];
+  const searchInput = document.getElementById("searchInput");
+  const cardList = document.getElementById("cardList");
+  const deckList = document.getElementById("deckList");
 
-    function renderCardList(filter="") {
-      cardList.innerHTML = "";
-      cards.filter(c => c.name.toLowerCase().includes(filter.toLowerCase()))
-           .forEach(card => {
-        const li = document.createElement("li"); li.className = "card-item";
-        const info = document.createElement("div"); info.className = "card-info";
-        info.innerHTML = `<strong>#${card.number}</strong> - ${card.name}<br>
-          <a href="${card.page}" target="_blank">Más info</a>`;
-        const btn = document.createElement("button"); btn.className = "add-btn";
-        btn.textContent = "Añadir";
-        btn.onclick = () => addToDeck(card.name);
-        li.appendChild(info); li.appendChild(btn);
-        cardList.appendChild(li);
-      });
-    }
+  function fuzzyFinder(expresion, pattern){
+    if(pattern.length == 0) return true;
 
-    function addToDeck(name) {
-      const item = deck.find(c => c.name === name);
-      if (item) {
-        if (item.count < 10) item.count++;
-      } else {
-        deck.push({ name, count: 1 });
+    let iPatt = 0;
+
+    const exp  = expresion.toLowerCase()
+    const patt = pattern.toLowerCase()
+
+    for(let iExp = 0; iExp < exp.length; ++iExp) {
+      if(exp.charAt(iExp) == patt.charAt(iPatt)){
+        if(++iPatt == patt.length) return true;
       }
-      renderDeck();
     }
 
-    function renderDeck() {
-      deckList.innerHTML = "";
-      deck.forEach(c => {
-        const li = document.createElement("li"); li.className = "deck-item";
-        const label = document.createElement("span"); label.textContent = c.name;
-        const select = document.createElement("select");
-        for (let i = 1; i <= 10; i++) {
-          const opt = document.createElement("option");
-          opt.value = i; opt.textContent = i;
-          if (i === c.count) opt.selected = true;
-          select.appendChild(opt);
-        }
-        select.onchange = () => { c.count = parseInt(select.value); };
-        const removeBtn = document.createElement("button");
-        removeBtn.className = "remove-btn"; removeBtn.textContent = "✖";
-        removeBtn.onclick = () => {
-          deck.splice(deck.indexOf(c), 1);
-          renderDeck();
-        };
-        li.appendChild(label); li.appendChild(select); li.appendChild(removeBtn);
-        deckList.appendChild(li);
-      });
+    return false
+  }
+
+  function renderCardList(filter) {
+    cardList.innerHTML = "";
+    cards.filter(c => fuzzyFinder(c.name, filter || "")).forEach((card, index) => {
+      const li = document.createElement("li"); li.className = "card-item";
+      const info = document.createElement("div"); info.className = "card-info";
+      info.innerHTML = `<strong>#${index+1}</strong> - ${card.name}<br>
+        <a href="${card.page}" target="_blank">Más info</a>`;
+      const btn = document.createElement("button"); btn.className = "add-btn";
+      btn.textContent = "Añadir";
+      btn.onclick = () => addToDeck(card.name);
+      li.appendChild(info); li.appendChild(btn);
+      cardList.appendChild(li);
+    });
+  }
+
+  function addToDeck(name) {
+    const item = deck.find(c => c.name === name);
+    if (item) {
+      if (item.count < 10) item.count++;
+    } else {
+      deck.push({ name, count: 1 });
     }
+    renderDeck();
+  }
 
-    function generateDeck() {
-      const deckName = document.getElementById("deckName").value.trim() || "Mazo_Dirkelyon";
-      const creator = document.getElementById("creatorName").value.trim() || "Anónimo";
-      let content = `Nombre del Mazo: ${deckName}\nForjado por el Maestro Artesano ${creator}\n\n`;
-      deck.forEach(c => { content += `${c.count}x ${c.name}\n`; });
+  function renderDeck() {
+    deckList.innerHTML = "";
+    deck.forEach(c => {
+      const li = document.createElement("li"); li.className = "deck-item";
+      const label = document.createElement("span"); label.textContent = c.name;
+      const select = document.createElement("select");
+      for (let i = 1; i <= 10; i++) {
+        const opt = document.createElement("option");
+        opt.value = i; opt.textContent = i;
+        if (i === c.count) opt.selected = true;
+        select.appendChild(opt);
+      }
+      select.onchange = () => { c.count = parseInt(select.value); };
+      const removeBtn = document.createElement("button");
+      removeBtn.className = "remove-btn"; removeBtn.textContent = "✖";
+      removeBtn.onclick = () => {
+        deck.splice(deck.indexOf(c), 1);
+        renderDeck();
+      };
+      li.appendChild(label); li.appendChild(select); li.appendChild(removeBtn);
+      deckList.appendChild(li);
+    });
+  }
 
-      const params = deck.map(c => encodeURIComponent(c.name) + ":" + c.count).join(",");
-      const loadUrl = window.location.origin + window.location.pathname + "?deck=" + params;
-      content += `\nLink para editar este mazo:\n${loadUrl}\n`;
+  function generateDeck() {
+    const deckName = document.getElementById("deckName").value.trim() || "Mazo_Dirkelyon";
+    const creator = document.getElementById("creatorName").value.trim() || "Anónimo";
+    let content = `Nombre del Mazo: ${deckName}\nForjado por el Maestro Artesano ${creator}\n\n`;
+    deck.forEach(c => { content += `${c.count}x ${c.name}\n`; });
 
-      const blob = new Blob([content], { type: "text/plain" });
-      const url = URL.createObjectURL(blob);
-      const a = document.createElement("a");
-      a.href = url;
-      a.download = `${deckName.replace(/\s+/g, '_')}.txt`;
-      a.click();
-      URL.revokeObjectURL(url);
-    }
+    const params = deck.map(c => encodeURIComponent(c.name) + ":" + c.count).join(",");
+    const loadUrl = window.location.origin + window.location.pathname + "?deck=" + params;
+    content += `\nLink para editar este mazo:\n${loadUrl}\n`;
 
-    // Cargar desde URL si existe
-    const params = new URLSearchParams(window.location.search);
-    const deckParam = params.get("deck");
-    if (deckParam) {
-      deckParam.split(",").forEach(e => {
-        const [nEsc, cStr] = e.split(":");
-        const name = decodeURIComponent(nEsc);
-        const cnt = parseInt(cStr);
-        if (name && cnt) deck.push({ name, count: cnt });
-      });
-      renderDeck();
-    }
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = `${deckName.replace(/\s+/g, '_')}.txt`;
+    a.click();
+    URL.revokeObjectURL(url);
+  }
 
-    searchInput.addEventListener("input", () => renderCardList(searchInput.value));
-    renderCardList();
-  });
+  // Cargar desde URL si existe
+  const params = new URLSearchParams(window.location.search);
+  const deckParam = params.get("deck");
+  if (deckParam) {
+    deckParam.split(",").forEach(e => {
+      const [nEsc, cStr] = e.split(":");
+      const name = decodeURIComponent(nEsc);
+      const cnt = parseInt(cStr);
+      if (name && cnt) deck.push({ name, count: cnt });
+    });
+    renderDeck();
+  }
+
+  searchInput.addEventListener("input", () => renderCardList(searchInput.value));
+  renderCardList();
   </script>
 
   <footer class="site-footer">
